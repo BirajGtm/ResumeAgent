@@ -3,7 +3,13 @@
 
 A modular pipeline for parsing, analyzing, and tailoring resumes using LLMs (Large Language Models) to match job descriptions. This project is designed for developers and job seekers who want to automate the process of customizing resumes for specific job postings. This also creates a cover letter if you select the option in the UI.
 
+## Preview
 ![Preview](https://i.imgur.com/8I97MC7.png)
+
+## Demo Video
+
+[![Watch the demo](https://img.youtube.com/vi/H5wdAmH2okM/0.jpg)](https://www.youtube.com/watch?v=H5wdAmH2okM&ab_channel=BirajGautam)
+
 
 ## Features
 
