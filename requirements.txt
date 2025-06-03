@@ -1,0 +1,15 @@
+flask
+python-dotenv
+openai
+jinja2
+weasyprint
+docx2txt
+pdfplumber
+python-docx
+markdown2
+google-genai
+
+#for macOS users, you may need to set the DYLD_LIBRARY_PATH environment variable
+#run this command in your terminal before running the app
+#If you installed WeasyPrint via Homebrew, you might need to run:
+#export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"

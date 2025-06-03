@@ -1,0 +1,9 @@
+{
+  "default_model": "gemini-1.5-flash",
+  "model_preferences": {
+    "tailoring": "gpt-4o",
+    "ats_check": "gemini-1.5-flash",
+    "cover_letter": "gemini-1.5-pro",
+    "evaluation": "gpt-4o"
+  }
+}

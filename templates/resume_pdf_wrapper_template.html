@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ applicant_name }} - Resume</title>
+  <style>
+    @page {
+      /* Tighter margins to save space */
+      margin: 0.5in; /* Try 0.5in first, can go to 0.4in if desperate */
+    }
+
+    body {
+      font-family: Calibri, Arial, sans-serif; /* Calibri primary, Arial fallback */
+      font-size: 10pt; /* Base body font size */
+      line-height: 1.25; /* Tighter line height for 10pt font */
+      color: #111111; /* Very dark gray / near black */
+    }
+
+    /* Name - Keep prominent but perhaps slightly smaller than before */
+    h1:first-child { 
+      font-size: 16pt; /* Reduced from 18-20pt */
+      font-weight: bold;
+      text-align: center;
+      color: #000000;
+      margin-top: 0;
+      margin-bottom: 2pt; /* Reduced */
+    }
+
+    /* Contact Information - Small, centered */
+    h1:first-child + p { 
+      text-align: center;
+      font-size: 8.5pt; /* Smaller for compactness */
+      color: #333333;
+      margin-bottom: 12pt; /* Reduced space after contact */
+      line-height: 1.2;
+    }
+    h1:first-child + p a {
+        color: #000000; 
+        text-decoration: none; 
+    }
+
+    /* Main Section Titles (e.g., Experience, Education, Skills) */
+    /* Markdown ## -> <h2> HTML tags */
+    h2 { 
+      font-size: 11pt; /* As requested */
+      font-weight: bold; /* As requested */
+      color: #000000; 
+      border-bottom: 0.75px solid #333333; /* Thinner border */
+      padding-bottom: 1.5pt; /* Reduced padding */
+      margin-top: 10pt; /* Reduced space above */
+      margin-bottom: 4pt; /* Reduced space below */
+      text-transform: uppercase;
+      /* text-transform: uppercase; /* Usually adds vertical space, consider removing if length is an issue */
+    }
+    /* Adjust margin for first H2 */
+    h1:first-child + p + h2,
+    h1:first-child + h2 {
+        margin-top: 0pt;
+    }
+
+    /* Sub-Headings (e.g., Job Title | Company | Dates; Project Name) */
+    /* Markdown ### -> <h3> HTML tags */
+    h3 { 
+      font-size: 10pt; /* Body text size, but bold will differentiate */
+      font-weight: bold; 
+      color: #111111;
+      margin-top: 6pt; /* Reduced */
+      margin-bottom: 2pt; /* Reduced */
+    }
+    /* Reduce top margin for first H3 in a section */
+    h2 + h3 {
+        margin-top: 1pt; /* Very tight */
+    }
+
+    /* Paragraphs within sections (e.g., for Profile/Summary, project descriptions not in bullets) */
+    p { 
+      margin-top: 0;
+      margin-bottom: 4pt; /* Reduced */
+    }
+
+    /* Bullet Points / Lists */
+    ul { 
+      list-style-type: disc;
+      padding-left: 14pt; /* Reduced indent for tighter layout */
+      margin-top: 1pt; /* Reduced */
+      margin-bottom: 4pt; /* Reduced */
+    }
+    li {
+      margin-bottom: 1.5pt; /* Very tight spacing between list items */
+      padding-left: 1pt;
+    }
+
+    /* Space adjustments for elements following lists or paragraphs */
+    ul + h3,      /* Next job/project title after a list */
+    p + h3 {      /* Next job/project title after a paragraph description */
+        margin-top: 8pt; /* Reduced */
+    }
+    h3 + p { /* Paragraphs directly after job/project title (e.g. a short description before bullets) */
+        margin-top: 1pt;
+    }
+    h3 + ul { /* List directly after job/project title */
+        margin-top: 1pt;
+    }
+
+  </style>
+</head>
+<body>
+  {{ resume_body_html | safe }} 
+</body>
+</html>
