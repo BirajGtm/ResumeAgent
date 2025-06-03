@@ -8,7 +8,7 @@ A modular pipeline for parsing, analyzing, and tailoring resumes using LLMs (Lar
 
 ## Demo Video
 
-[![Watch the demo](https://i.imgur.com/d0Ns39V)](https://www.youtube.com/watch?v=H5wdAmH2okM&ab_channel=BirajGautam)
+[![Watch the demo](https://i.imgur.com/d0Ns39V.png)](https://www.youtube.com/watch?v=H5wdAmH2okM&ab_channel=BirajGautam)
 
 
 ## Features
