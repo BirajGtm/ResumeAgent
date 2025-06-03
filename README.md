@@ -38,8 +38,7 @@ resume_agentic_pipeline/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/resume_agentic_pipeline.git
-cd resume_agentic_pipeline
+git clone https://github.com/BirajGtm/ResumeAgent
 ```
 
 ### 2. Set Up Environment
