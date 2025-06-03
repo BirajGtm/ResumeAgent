@@ -1,7 +1,7 @@
- **Readme created using GitHub Copilot - might have inconsistancies**
+**Readme created using GitHub Copilot - might have inconsistancies**
 # Resume Agentic Pipeline
 
-A modular pipeline for parsing, analyzing, and tailoring resumes using LLMs (Large Language Models) to match job descriptions. This project is designed for developers and job seekers who want to automate the process of customizing resumes for specific job postings.
+A modular pipeline for parsing, analyzing, and tailoring resumes using LLMs (Large Language Models) to match job descriptions. This project is designed for developers and job seekers who want to automate the process of customizing resumes for specific job postings. This also creates a cover letter if you select the option in the UI.
 
 ## Features
 
@@ -9,7 +9,7 @@ A modular pipeline for parsing, analyzing, and tailoring resumes using LLMs (Lar
 - **Job Description Analysis:** Extracts key requirements and skills from job descriptions.
 - **LLM-Powered Tailoring:** Uses models like GPT-4o to rewrite and structure resume sections for optimal alignment with job postings.
 - **Section-Based Processing:** Supports tailoring the entire resume or specific sections.
-- **Output in JSON or Markdown:** Structured output for easy integration with other tools or direct use.
+- **Output as PDF:** Can edit and download pdf files. 
 
 ## Project Structure
 
@@ -42,11 +42,11 @@ cd resume_agentic_pipeline
 cp .env.example .env
 ```
 
-- (Optional) Create a virtual environment:
+- (Recommended) Create a conda environment:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+conda create -n resume_agentic python=3.10
+conda activate resume_agentic
 ```
 
 - Install dependencies:
@@ -57,24 +57,28 @@ pip install -r requirements.txt
 
 ### 3. Usage
 
-- Place your resume in `input/uploaded_resume.txt`.
-- Place your job description in `input/job_description.txt`.
 - Run the main pipeline script (example):
 
 ```bash
-python main.py
+python app.py
 ```
-
-- Tailored resume output will be saved in the `output/` directory.
+### 4. Workflow
+- You need to provide a master resume - with all your experience and background in .docx file.
+- Tailored resume output will be available in the UI. You can edit and download a pdf.
+- If you are using one resume, upload it only first time, it will then use cached data to create tailored resumes and you dont need to select resume file over and over again.
+- If you wanna change and work with new resume just select a new resume from Choose file option.
+- Select LLM you wanna use for tailoring resume or evaluating it.
+- Try exploring other features on your own as I have not mentioned everything here.
+- Custom file name does not work at the moment.
 
 ## Configuration
 
-- **Model Selection:** Set your preferred LLM model in the `.env` file (e.g., `gpt-4o`).
-- **API Keys:** Store your OpenAI or other LLM provider keys in `.env`.
+- **Model Selection:** Set your preferred LLM model from the list in the web UI, before that make your you have your API keys in the `.env` file (e.g., `gpt-4o`).
+- Note: Can use Gemini upto 2.0 flash.
 
 ## Development
 
-- All core logic is in the `modules/` directory.
+- All core logic is in the `modules/` and `routes/`  directory.
 - See `modules/tailor_agent.py` for the main tailoring logic and prompt engineering.
 
 ## Ignore Rules
