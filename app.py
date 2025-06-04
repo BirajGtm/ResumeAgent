@@ -56,6 +56,6 @@ if __name__ == "__main__":
 
     # For Render.com and similar PaaS, PORT is often injected as an env var.
     # host='0.0.0.0' makes it accessible externally (needed for containers/PaaS).
-    port = int(os.environ.get("PORT", 5001)) 
+    port = int(os.environ.get("PORT", 8000)) 
     # Set debug=False for production deployments!
     app.run(debug=True, host='0.0.0.0', port=port) 
