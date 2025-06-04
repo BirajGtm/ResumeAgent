@@ -26,6 +26,7 @@ from modules.tailor_agent import generate_tailored_resume
 from modules.ats_optimizer import score_ats_match
 from modules.resume_evaluator import evaluate_resume
 from modules.cover_letter_agent import generate_cover_letter
+from .utils import cleanup_temp_files
 # generate_pdf_resume is called by download_pdf_route
 
 def generate_logic():
@@ -157,9 +158,17 @@ def generate_logic():
         return "Error saving PDF data.", 500
     # --- End PDF data storage ---
     
+        # --- Call Cleanup Function ---
+    try:
+        temp_data_folder_for_cleanup = current_app.config['TEMP_DATA_FOLDER']
+        cleanup_log_output = cleanup_temp_files(temp_data_folder_for_cleanup, max_files_to_keep_per_prefix=5) # Adjust max_files as needed
+        print(cleanup_log_output) 
+    except Exception as e_cleanup:
+        print(f"ERROR: [/generate_logic] - Exception during temp file cleanup: {e_cleanup}")
+    # --- End Cleanup Call ---
     section_titles_for_dropdown = list(original_parsed_resume.keys()) if isinstance(original_parsed_resume, dict) else []
     
-    print(f"DEBUG: [/generate_logic] FULL SESSION before render_template (should be small now): {dict(session)}")
+    # print(f"DEBUG: [/generate_logic] FULL SESSION before render_template (should be small now): {dict(session)}")
     return render_template("result.html",
         tailored_resume_html=tailored_resume_html,
         ats_score=ats_result["ats_score"],

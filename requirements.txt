@@ -1,13 +1,26 @@
-flask
-python-dotenv
-openai
-jinja2
-weasyprint
-docx2txt
-pdfplumber
-python-docx
-markdown2
-google-genai
+
+# --- web framework ---
+flask==3.0.3         # 3.1.1 released 2025‑05‑13 :contentReference[oaicite:0]{index=0}
+gunicorn==22.0.0        # WSGI server for production
+
+# --- env & config ---
+python-dotenv==1.1.0    # latest 2025‑03‑25 :contentReference[oaicite:1]{index=1}
+
+# --- LLM clients ---
+openai==1.84.0          # latest 2025‑06‑03 :contentReference[oaicite:2]{index=2}
+google-genai==1.18.0    # latest 2025‑05‑30 :contentReference[oaicite:3]{index=3}
+
+# --- templating / markdown ---
+Jinja2==3.1.6           # latest 2025‑03‑05; Flask will pull this anyway :contentReference[oaicite:4]{index=4}
+markdown2==2.5.3        # current
+
+# --- document generation & parsing ---
+WeasyPrint==65.1        # current (no newer release as of Jun 2025)
+docx2txt==0.9
+python-docx==1.1.2
+pdfplumber==0.11.6
+
+
 
 #for macOS users, you may need to set the DYLD_LIBRARY_PATH environment variable
 #run this command in your terminal before running the app

@@ -1,0 +1,29 @@
+# Folders we don’t want in the container
+.cache/
+.input/
+.output/
+__pycache__/
+.temp_resume_data/
+
+# Python junk
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Venvs
+.venv/
+venv/
+env/
+ENV/
+
+# IDEs & editors
+.idea/
+.vscode/
+
+# OS & package managers
+.DS_Store
+node_modules/
