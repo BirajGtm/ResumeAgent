@@ -14,16 +14,6 @@ def create_app():
     # IMPORTANT: Set a strong, unique secret key! Get from .env or generate one.
     app.config['SECRET_KEY'] = 'this_is_a_decent_length_secret_key_for_testing_sessions_locally_123!@#' 
     print(f"EFFECTIVE SECRET KEY: {app.config.get('SECRET_KEY')}")
-    # Optional: Configure Server-Side Sessions (Example: Filesystem)
-    # app.config["SESSION_TYPE"] = "filesystem"
-    # app.config["SESSION_PERMANENT"] = False # Or True with a lifetime
-    # app.config["SESSION_USE_SIGNER"] = True 
-    # # Create 'flask_session' directory in your project root if using filesystem
-    # session_file_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'flask_session')
-    # if not os.path.exists(session_file_dir):
-    #     os.makedirs(session_file_dir)
-    # app.config["SESSION_FILE_DIR"] = session_file_dir
-    # Session(app) # Initialize Flask-Session
 
     # Ensure base folders for app operation exist
     # These paths should be relative to where app.py is, or use absolute paths
@@ -53,12 +43,6 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.debug = True
-    print("🚀 Registered Routes:")
-    for rule in app.url_map.iter_rules():
-        print(rule)
-    # For Render.com and similar PaaS, PORT is often injected as an env var.
-    # host='0.0.0.0' makes it accessible externally (needed for containers/PaaS).
     port = int(os.environ.get("PORT", 8000)) 
     # Set debug=False for production deployments!
     app.run(debug=True, host='0.0.0.0', port=port) 
