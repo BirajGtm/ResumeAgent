@@ -3,6 +3,7 @@ import json
 import re
 from docx import Document
 from modules.llm_router import run_llm_task
+import docx2txt
 
 INPUT_DIR = "input"
 RAW_RESUME_PATH = os.path.join(INPUT_DIR, "uploaded_resume.txt")
@@ -10,11 +11,48 @@ PARSED_JSON_PATH = os.path.join(INPUT_DIR, "parsed_resume.json")
 RESUME_DOCX_PATH = "cache/master_resume.docx"
 
 
+def extract_text_with_docx2txt(docx_path):
+    """
+    Extracts all visible text from a DOCX file using docx2txt.
+    This includes text boxes, headers, tables, etc., better than python-docx.
+    """
+    try:
+        text = docx2txt.process(docx_path)
+        return text.strip() if text else ""
+    except Exception as e:
+        return f"⚠️ Error extracting text: {e}"
+    
 def extract_text_from_docx(docx_path):
     doc = Document(docx_path)
-    return "\n".join(
-        [p.text for p in doc.paragraphs if p.text.strip()]
-    )
+    full_text = []
+
+    # 1. Extract paragraph text
+    for para in doc.paragraphs:
+        if para.text.strip():
+            full_text.append(para.text.strip())
+
+    # 2. Extract table content
+    for table in doc.tables:
+        for row in table.rows:
+            row_text = [cell.text.strip() for cell in row.cells if cell.text.strip()]
+            if row_text:
+                full_text.append(" | ".join(row_text))  # Format as a readable line
+
+    # 3. Extract header/footer text (if any)
+    for section in doc.sections:
+        header = section.header
+        footer = section.footer
+        if header and header.paragraphs:
+            for para in header.paragraphs:
+                if para.text.strip():
+                    full_text.append("[Header] " + para.text.strip())
+        if footer and footer.paragraphs:
+            for para in footer.paragraphs:
+                if para.text.strip():
+                    full_text.append("[Footer] " + para.text.strip())
+
+    return "\n".join(full_text)
+
 
 
 def clean_llm_json_output(output):
@@ -34,6 +72,12 @@ def get_parsed_resume(model, force_parse=False):
     # Decision: When should RAW_RESUME_PATH be updated from RESUME_DOCX_PATH?
     # - If RAW_RESUME_PATH doesn't exist AND RESUME_DOCX_PATH exists (initial run with DOCX).
     # - OR if force_parse is True AND RESUME_DOCX_PATH exists (new DOCX uploaded, so text needs refresh).
+    # Ensure required directories exist
+    os.makedirs("input", exist_ok=True)
+    os.makedirs("cache", exist_ok=True)
+    os.makedirs("output", exist_ok=True)
+    os.makedirs("temp_resume_data", exist_ok=True)
+
     should_extract_text_from_docx = (
         not os.path.exists(RAW_RESUME_PATH) and os.path.exists(RESUME_DOCX_PATH)
     ) or (force_parse and os.path.exists(RESUME_DOCX_PATH))
@@ -41,7 +85,7 @@ def get_parsed_resume(model, force_parse=False):
     if should_extract_text_from_docx:
         print(f"INFO: Extracting text from {RESUME_DOCX_PATH} to {RAW_RESUME_PATH} because should_extract_text_from_docx is True (force_parse: {force_parse})") # Logging for debug
         try:
-            resume_text = extract_text_from_docx(RESUME_DOCX_PATH)
+            resume_text = extract_text_with_docx2txt(RESUME_DOCX_PATH)
             with open(RAW_RESUME_PATH, "w", encoding="utf-8") as f:
                 f.write(resume_text)
         except Exception as e:
