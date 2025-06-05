@@ -2,6 +2,8 @@
 from flask import render_template, session
 
 def index_page(): # Renamed to avoid conflict if imported directly as 'index'
+    
+    print("INFO: index_page() route was hit.")
     form_data = {
         'job_description': session.get('last_jd', ''),
         'job_title': session.get('last_job_title', 'Tailored'),

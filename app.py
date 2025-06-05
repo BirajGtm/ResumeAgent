@@ -53,7 +53,10 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-
+    app.debug = True
+    print("🚀 Registered Routes:")
+    for rule in app.url_map.iter_rules():
+        print(rule)
     # For Render.com and similar PaaS, PORT is often injected as an env var.
     # host='0.0.0.0' makes it accessible externally (needed for containers/PaaS).
     port = int(os.environ.get("PORT", 8000)) 

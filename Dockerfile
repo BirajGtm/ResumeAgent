@@ -1,5 +1,5 @@
 # Use official lightweight Python image
-FROM python:3.12-slim
+FROM python:3.12.7-slim
 
 # Install system dependencies needed by WeasyPrint
 RUN apt-get update && apt-get install -y --no-install-recommends \

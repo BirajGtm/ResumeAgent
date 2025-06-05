@@ -16,8 +16,7 @@ from .retailor_route import retailor_section_logic# Assuming utils.py is in the 
 main_bp = Blueprint(
     'main_bp', 
     __name__,
-    template_folder='../templates', # Correctly points one level up to 'templates'
-    static_folder='../static'      # Correctly points one level up to 'static'
+    template_folder='templates',
 )
 
 # Register routes using the imported logic functions
@@ -26,14 +25,3 @@ main_bp.add_url_rule('/generate', view_func=generate_logic, methods=['POST'])
 main_bp.add_url_rule('/download_pdf', view_func=download_pdf_logic, methods=['POST'])
 main_bp.add_url_rule('/reevaluate_resume', view_func=reevaluate_resume_logic, methods=['POST'])
 main_bp.add_url_rule('/retailor_section', view_func=retailor_section_logic, methods=['POST'])
-
-# Alternative using decorators (if you prefer to define functions here and call logic):
-# @main_bp.route('/', methods=['GET'])
-# def index_wrapper():
-#     return index_page()
-#
-# @main_bp.route('/generate', methods=['POST'])
-# def generate_wrapper():
-# return generate_logic()
-# ... and so on for other routes. add_url_rule is cleaner if the imported functions
-# are designed to be the direct view functions.
