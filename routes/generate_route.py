@@ -30,12 +30,12 @@ from .utils import cleanup_temp_files
 # generate_pdf_resume is called by download_pdf_route
 
 def generate_logic():
-    print("======== /GENERATE ROUTE LOGIC CALLED (MARKDOWN FLOW) ========")
+    print("======== /GENERATE ROUTE LOGIC CALLED ========")
     upload_folder = current_app.config['UPLOAD_FOLDER']
     temp_data_folder = current_app.config['TEMP_DATA_FOLDER']
 
     # Check and print the effective secret key for debugging session issues
-    print(f"DEBUG: [/generate_logic] EFFECTIVE SECRET KEY: {current_app.secret_key}")
+    # print(f"DEBUG: [/generate_logic] EFFECTIVE SECRET KEY: {current_app.secret_key}")
 
 
     resume_file = request.files.get("resume")
@@ -95,7 +95,7 @@ def generate_logic():
         with open(opr_temp_path, 'w', encoding='utf-8') as f:
             json.dump(original_parsed_resume, f)
         session['original_parsed_resume_id'] = opr_file_id # STORE ID
-        print(f"INFO: Original parsed resume stored in temp file ID: {opr_file_id}. Keys: {list(original_parsed_resume.keys())}")
+        # print(f"INFO: Original parsed resume stored in temp file ID: {opr_file_id}. Keys: {list(original_parsed_resume.keys())}")
     except Exception as e:
         print(f"ERROR: Failed to write original_parsed_resume to temp file: {e}")
         return "Error saving original resume data.", 500
@@ -162,7 +162,8 @@ def generate_logic():
     try:
         temp_data_folder_for_cleanup = current_app.config['TEMP_DATA_FOLDER']
         cleanup_log_output = cleanup_temp_files(temp_data_folder_for_cleanup, max_files_to_keep_per_prefix=5) # Adjust max_files as needed
-        print(cleanup_log_output) 
+        # print(cleanup_log_output) 
+        print(f"INFO: [/generate_logic] Cleanup ran with or without issues.")
     except Exception as e_cleanup:
         print(f"ERROR: [/generate_logic] - Exception during temp file cleanup: {e_cleanup}")
     # --- End Cleanup Call ---

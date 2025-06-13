@@ -13,7 +13,7 @@ def create_app():
     
     # IMPORTANT: Set a strong, unique secret key! Get from .env or generate one.
     app.config['SECRET_KEY'] = 'this_is_a_decent_length_secret_key_for_testing_sessions_locally_123!@#' 
-    print(f"EFFECTIVE SECRET KEY: {app.config.get('SECRET_KEY')}")
+    # print(f"EFFECTIVE SECRET KEY: {app.config.get('SECRET_KEY')}")
 
     # Ensure base folders for app operation exist
     # These paths should be relative to where app.py is, or use absolute paths
@@ -28,7 +28,7 @@ def create_app():
     try:
         from routes.main_routes import main_bp # Assuming your blueprint is main_bp in routes/main_routes.py
         app.register_blueprint(main_bp)
-        print("INFO: Main blueprint registered successfully.")
+        # print("INFO: Main blueprint registered successfully.")
     except ImportError as e:
         print(f"ERROR: Could not import or register blueprint: {e}")
         print("Please ensure routes/main_routes.py exists and main_bp is defined.")
