@@ -263,23 +263,48 @@
   const progressText = document.getElementById('progress-text');
   const loaderMessageElement = document.getElementById('loader-message');
 
-  let currentPercentage = 0;
+  // Declare interval variable in a scope accessible by both event listeners
+  let loaderInterval = null;
+  let currentPercentage = 0; // Also make these accessible if needed for reset
   let elapsedSeconds = 0;
-  let loaderInterval;
+
+  function resetLoaderState() {
+    if (loaderInterval) {
+      clearInterval(loaderInterval);
+      loaderInterval = null; // Clear the interval ID
+    }
+
+    loaderOverlay.style.display = 'none';
+    submitButton.disabled = false;
+    submitButton.value = "✨ Tailor My Resume & Analyze ✨"; // Reset button text
+    progressBar.style.width = '0%';
+    progressText.textContent = '0%';
+    loaderMessageElement.textContent = "Initializing process..."; // Reset message
+    currentPercentage = 0;
+    elapsedSeconds = 0;
+  }
+
+  // Listen for the pageshow event
+  window.addEventListener('pageshow', function(event) {
+    // event.persisted is true if the page is loaded from the bfcache
+    // We want to reset the state regardless, but especially if from bfcache
+    resetLoaderState();
+  });
+
+  // Call resetLoaderState on initial load as well (though pageshow usually covers this)
+  // document.addEventListener('DOMContentLoaded', resetLoaderState); // This can be redundant
 
   function updateLoaderDisplay() {
-    // Ensure percentage is an integer, non-negative, and capped at 95 (unless form actually finishes)
     currentPercentage = Math.min(95, Math.max(0, Math.floor(currentPercentage)));
     progressText.textContent = `${currentPercentage}%`;
     progressBar.style.width = `${currentPercentage}%`;
   }
 
   resumeForm.addEventListener('submit', function(event) {
-    // Basic validation (optional, but good practice)
-    // You can add checks here, e.g., if job description is empty:
+    // Optional: Basic validation
     // if (!document.getElementById('job_description').value.trim()) {
     //     alert('Please paste the job description.');
-    //     event.preventDefault(); // Stop form submission
+    //     event.preventDefault();
     //     return;
     // }
 
@@ -287,61 +312,44 @@
     submitButton.disabled = true;
     submitButton.value = "Processing...";
 
+    // Reset variables for the new submission
     currentPercentage = 0;
     elapsedSeconds = 0;
-    loaderMessageElement.textContent = "Starting tailoring process..."; // Initial message
-    updateLoaderDisplay(); // Show 0% initially
+    loaderMessageElement.textContent = "Initializing process...";
+    updateLoaderDisplay();
+
+    // Clear any existing interval before starting a new one (important if user double-clicks submit quickly)
+    if (loaderInterval) {
+        clearInterval(loaderInterval);
+    }
 
     loaderInterval = setInterval(() => {
       elapsedSeconds++;
 
-      // Phase 1: Up to 30 seconds
-      // "after every 5 sec 5 %" up to 25s, then "after 30 secs 45%"
-      if (elapsedSeconds <= 29) { // Handles 1s to 29s
+      if (elapsedSeconds <= 29) {
         if (elapsedSeconds % 5 === 0) {
-          // At 5s, 10s, 15s, 20s, 25s, percentage becomes 5%, 10%, 15%, 20%, 25% respectively
-          currentPercentage = elapsedSeconds; // e.g. at 5s, currentPercentage = 5
+          currentPercentage = elapsedSeconds;
         } else {
-          // Between the 5-second marks, hold the previous percentage
-          // e.g., at 1s-4s, it's 0. At 6s-9s, it's 5.
           currentPercentage = Math.floor(elapsedSeconds / 5) * 5;
         }
-      } else if (elapsedSeconds === 30) { // Exactly at 30 seconds
+      } else if (elapsedSeconds === 30) {
         currentPercentage = 45;
-        loaderMessageElement.textContent = "Working very hard to tailor resume...";
-      }
-      // Phase 2: From 31 seconds up to 50 seconds (next 20 seconds)
-      // Message: "Tailoring almost complete..." (set at 30s)
-      else if (elapsedSeconds <= 50) { // Covers 31s to 50s
-        // Start from 45% (at 30s).
-        // Let's aim to reach 85% by the 50s mark.
-        // Increase needed: 85 - 45 = 40% over 20 seconds. Rate = 2% per second.
-        // Percentage = value_at_start_of_phase + (seconds_passed_in_this_phase * rate)
+        loaderMessageElement.textContent = "Tailoring almost complete...";
+      } else if (elapsedSeconds <= 50) {
         currentPercentage = 45 + (elapsedSeconds - 30) * 2;
-
-        if (elapsedSeconds === 50) { // At the 50-second mark (end of this phase)
+        if (elapsedSeconds === 50) {
           loaderMessageElement.textContent = "Working on evaluating and keyword matching...";
-          // currentPercentage will be 45 + (50-30)*2 = 45 + 40 = 85
         }
-      }
-      // Phase 3: After 50 seconds
-      // Message: "Working on evaluating and keyword matching..." (set at 50s)
-      else {
-        // Start from 85% (at 50s).
-        // Slowly increase towards 95%. Let's say 1% every 2 seconds.
-        const basePercentageForThisPhase = 85; // Value at the end of the previous phase (50s)
+      } else {
+        const basePercentageForThisPhase = 85;
         const secondsIntoThisPhase = elapsedSeconds - 50;
-        const additionalPercentage = Math.floor(secondsIntoThisPhase / 2); // 1% every 2 seconds
-        
+        const additionalPercentage = Math.floor(secondsIntoThisPhase / 2);
         currentPercentage = basePercentageForThisPhase + additionalPercentage;
       }
       
       updateLoaderDisplay();
 
-      // The interval will naturally stop when the page navigates away due to form submission.
-      // If this were an AJAX call, you would clear the interval in .then() or .finally().
-      // If processing takes longer than this simulation, the 95% will just hold.
-    }, 1000); // Update progress every second
+    }, 1000);
   });
 </script>
 </body>

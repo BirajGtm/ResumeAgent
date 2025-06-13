@@ -60,7 +60,7 @@ def generate_logic():
 
     # --- Store values in session & temp files ---
     # Small items directly in session:
-    session['last_jd_for_form'] = raw_jd # For re-populating form (if not too large, otherwise also use temp file)
+    # session['last_jd_for_form'] = raw_jd # For re-populating form (if not too large, otherwise also use temp file)
     session['last_job_title_for_pdf'] = job_title_from_form
     session['last_company_for_pdf'] = company_from_form
     session['last_model_tailoring'] = models["tailoring"]

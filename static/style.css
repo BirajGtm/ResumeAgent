@@ -1,0 +1,121 @@
+
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 30px; line-height: 1.5; color: #333; background-color: #f4f7f6; }
+    .container { max-width: 900px; margin: auto; background-color: #fff; padding: 25px 30px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); border-radius: 8px; }
+    h1.page-title { font-size: 2em; text-align: center; margin-bottom: 30px; color: #3498db;}
+    h2.section-heading { 
+        font-size: 1.6em; color: #2c3e50; 
+        border-bottom: 2px solid #3498db; 
+        padding-bottom: 8px; 
+        margin-top: 40px; margin-bottom: 20px;
+        display: flex; /* For aligning button next to title */
+        justify-content: space-between; /* For aligning button next to title */
+        align-items: center; /* For aligning button next to title */
+    }
+    /* Resume Preview Styles */
+    .resume-preview-html { 
+        background: #ffffff; border: 1px solid #e0e0e0; 
+        padding: 25px; border-radius: 8px; margin-top: 0px; /* Reduced top margin as heading is above */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        min-height: 300px; 
+    }
+    /* Styles for HTML generated from Markdown (apply these to your liking) */
+    .resume-preview-html h1 { font-size: 1.8em; text-align: center; margin-bottom: 8px; color: #2c3e50; } 
+    .resume-preview-html h2 { font-size: 1.3em; color: #3498db; border-bottom: 1px solid #3498db; padding-bottom: 4px; margin-top: 20px; margin-bottom: 10px; font-weight: bold;} 
+    .resume-preview-html h3 { font-size: 1.1em; font-weight: bold; margin-top: 15px; margin-bottom: 5px; color: #333;} 
+    .resume-preview-html ul { list-style-type: disc; margin-left: 20px; padding-left: 5px; }
+    .resume-preview-html li { margin-bottom: 5px; }
+    .resume-preview-html p { margin-bottom: 8px; }
+
+     .edit-controls, .retailor-controls-container { /* Grouping these */
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+    }
+    .retailor-controls-container label { margin-right: 10px; font-weight: normal; }
+    .retailor-controls-container select { padding: 6px 10px; border-radius: 4px; border: 1px solid #ced4da; margin-right: 10px; }
+    
+    .edit-button, .save-and-download-button, .download-button, .retailor-button, .reevaluate-button {
+        padding: 10px 18px; /* Standardized padding */
+        font-size: 0.95em; /* Standardized font size */
+        font-weight: bold; color: white;
+        border: none; border-radius: 5px; cursor: pointer;
+        text-decoration: none; transition: background-color 0.2s ease-in-out;
+        margin-left: 5px; margin-right: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .edit-button { background-color: #ffc107; }
+    .edit-button:hover { background-color: #e0a800; }
+    .save-and-download-button { background-color: #28a745; }
+    .save-and-download-button:hover { background-color: #1e7e34; }
+    .download-button { background-color: #007bff; }
+    .download-button:hover { background-color: #0056b3; }
+    .retailor-button { background-color: #17a2b8; } /* Teal for re-tailor */
+    .retailor-button:hover { background-color: #138496; }
+    .reevaluate-button { background-color: #6c757d; margin-left: auto; } /* Secondary, pushed to right */
+    .reevaluate-button:hover { background-color: #5a6268; }
+
+    .resume-loading-overlay {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0; /* Cover the parent */
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex; justify-content: center; align-items: center;
+        font-style: italic; color: #555; z-index: 10;
+        border-radius: 8px; /* Match parent if parent has radius */
+    }
+    /* ATS Score and Keywords Section (using your existing styles) */
+    .ats-section { margin-bottom: 30px; }
+    .score { font-size: 1.5em; font-weight: bold; color: #27ae60; margin-bottom: 10px; display: block; text-align: center;}
+    .keywords-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+        gap: 10px 15px; 
+        padding: 15px; background-color: #f9f9f9;
+        border: 1px solid #e0e0e0; border-radius: 6px;
+    }
+    .keywords-container li {
+        padding: 5px 8px; background-color: #e9ecef; 
+        border-radius: 4px; font-size: 0.9em;
+        margin-bottom: 5px; text-align: center;
+    }
+    .keywords-column-header { 
+        font-weight: bold; color: #2c3e50;
+        margin-bottom: 10px; font-size: 1.2em;
+    }
+
+    /* Evaluator Feedback Section (using your existing styles) */
+    .evaluator-feedback-section pre { 
+        background: #f0f4f8; padding: 20px; border-radius: 6px; 
+        white-space: pre-wrap; word-wrap: break-word; 
+        font-family: 'Georgia', serif; font-size: 1.05em; 
+        line-height: 1.6; border-left: 5px solid #3498db; 
+        color: #444; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    /* Cover Letter Section (using your existing styles) */
+    .cover-letter-html {
+        background: #fdfdfd; border: 1px solid #e0e0e0; 
+        padding: 25px; border-radius: 8px; margin-top: 15px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+  
+  .reevaluate-button {
+        margin-left: 15px;
+        padding: 6px 12px;
+        font-size: 0.85em;
+        background-color: #6c757d; /* A neutral secondary color */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        vertical-align: middle; /* Align with heading text */
+    }
+    .reevaluate-button:hover {
+        background-color: #5a6268;
+    }
+    .feedback-loading { /* Style for loading indicator */
+        font-style: italic;
+        color: #777;
+    }
