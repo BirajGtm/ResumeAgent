@@ -23,6 +23,9 @@ Candidate Resume:
 {resume_text}
 
 Please rate and review this candidate's resume for the job.
+Start with a score out of 100 and detailed feedback on strengths and weaknesses.
+Do not start with "As an AI" , "In my opinion" or similar phrases.
+Just give the score and feedback directly.
 """
 
     response = run_llm_task(
